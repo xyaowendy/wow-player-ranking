@@ -11,13 +11,20 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
+// pagination - number of records on each page
+const PAGE_SIZE = 100;
 
 // This section will help you get a list of all the records.
-recordRoutes.route("/record").get(function (req, res) {
-    let db_connect = dbo.getDb("wowdb");
-    db_connect
+recordRoutes.route("/record").get(async function(req, res) {
+    const {page = 0} = req.query;
+
+    let db_connect = await dbo.getDb("wowdb");
+    await db_connect
         .collection("Players")
-        .find({})
+        .find({}, {
+            skip: parseInt(page) * PAGE_SIZE,
+            limit: PAGE_SIZE
+        })
         .toArray(function (err, result) {
             if (err) throw err;
             res.json(result);
