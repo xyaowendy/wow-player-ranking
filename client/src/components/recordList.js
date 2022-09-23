@@ -28,7 +28,7 @@ export default function RecordList() {
     // This method fetches the records from the database.
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch('http://localhost:3001/record?page=' + (page-1));
+            const response = await fetch('/record?page=' + (page-1));
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -50,7 +50,7 @@ export default function RecordList() {
         return records.map((record, i) => {
             return (
                 <Record
-                    order = {(page-1)*10 + i + 1}
+                    order = {(page-1)*100 + i + 1}
                     record={record}
                     key={record._id}
                 />
@@ -89,7 +89,7 @@ export default function RecordList() {
 
             <div className="display-fixed sticky-bottom bg-light py-3">
             <Box my={2} display="flex" position="sticky" justifyContent="center">
-                <Pagination count={500} variant="outlined" page={page} onChange={handleChange} />
+                <Pagination count={50} variant="outlined" page={page} onChange={handleChange} />
             </Box>
             </div>
 
