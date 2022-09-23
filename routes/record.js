@@ -12,7 +12,7 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 
 // pagination - number of records on each page
-const PAGE_SIZE = 100;
+const PAGE_SIZE = 10;
 
 // This section will help you get a list of all the records.
 recordRoutes.route("/record").get(async function(req, res) {
